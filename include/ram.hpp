@@ -12,14 +12,40 @@ private:
 
 public:
   Ram();
+  /**
+   *  @brief Functon makes each cell of ram null and stores default hex sprites
+   * in interprter memory area.
+   */
   void reset();
 
+  /**
+   *  @brief Access the memory contents.
+   *  @param n Specify memory address.
+   *  @return memory content at address n.
+   */
   unsigned char &operator[](int n);
+  /**
+   *  @brief Access the memory contents.
+   *  @param n Specify memory address.
+   *  @return memory content at address n.
+   */
   const unsigned char &operator[](int n) const;
 
+  /**
+   *  @brief Get address of defalut sprite.
+   *  @pram sprite hex digit whoes address needs to be accessed.
+   *  @return adderess of memory location containing sprite.
+   */
   int sprite_location(unsigned char sprite) const;
 
+  /**
+   *  @brief Load the ROM contents into memory location starting at 0x200.
+   *  @retrun address of first instruction in memory.
+   */
   int load(const std::string &path);
 
+  /**
+   *  @brief Print contnets program space in RAM.
+   */
   void dump() const;
 };

@@ -27,12 +27,29 @@ private:
 public:
   CPU();
 
+  /**
+   *  @brief Function to print contents of registers.
+   */
   void dump() const;
+  /**
+   *  @brief Function to reset CPU state.
+   */
   void reset();
 
+  /**
+   *  @brief Executes the rom.
+   *  @param path Specify the path of ram.
+   */
   void run(const std::string &path);
 
 private:
+  /**
+   *  @brief Fetch 2 byte instruction from RAM and update program counter.
+   *  @return 2 byte instruction.
+   */
   unsigned short int fetch();
+  /**
+   *  @brief Decode and execute instruction pointed by program counter.
+   */
   void exec();
 };
