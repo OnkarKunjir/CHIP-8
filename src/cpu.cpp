@@ -1,9 +1,7 @@
-#include "utils/log.hpp"
-#include <cstdlib>
-#include <unistd.h>
 #define __FILENAME__ "CPU"
 
 #include "cpu.hpp"
+#include "utils/log.hpp"
 
 #include <cstdio>
 
@@ -36,17 +34,25 @@ void CPU::dump() const {
 void CPU::run(const std::string &path) {
   reset();
   _PC = _ram.load(path);
+
+  double last_time, current_time = 0;
+
   while (!_halt && _display.is_active()) {
-    // do processing.
-    exec();
 
-    if (_delay_timer > 0)
-      _delay_timer--;
-    if (_sound_timer > 0)
-      _sound_timer--;
+    current_time = _display.get_time();
+    if (current_time - last_time > 1.0 / 200) {
+      last_time = current_time;
+      // do processing.
+      exec();
 
-    _display.update();
-    _display.poll_events();
+      if (_delay_timer > 0)
+        _delay_timer--;
+      if (_sound_timer > 0)
+        _sound_timer--;
+
+      _display.update();
+      _display.poll_events();
+    }
   }
 }
 
@@ -73,8 +79,8 @@ void CPU::exec() {
 
   case 0x0:
     if (instruction == 0x00E0) {
-      // TODO: clear display.
-      Log::warn(__FILENAME__, "Clear display not implemented");
+      // CLS
+      _display.cls();
     } else if (instruction == 0x00EE) {
       // RET
       if (_SP == -1)
@@ -269,7 +275,13 @@ void CPU::exec() {
       break;
 
     case 0x33:
-      // TODO:LD B, Vx
+      // LD B, Vx
+      kk = _V[x];
+      _ram[_I + 2] = kk % 10;
+      kk = kk / 10;
+      _ram[_I + 1] = kk % 10;
+      kk = kk / 10;
+      _ram[_I] = kk % 10;
       break;
 
     case 0x55:

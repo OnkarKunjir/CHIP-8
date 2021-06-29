@@ -8,6 +8,6 @@
 
 int main() {
   CPU cpu;
-  cpu.run("roms/PONG");
+  cpu.run("roms/TETRIS");
   return 0;
 }

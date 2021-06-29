@@ -47,4 +47,6 @@ public:
 
   bool press(int key) const;
   bool release(int key) const;
+
+  double get_time() const;
 };
