@@ -1,3 +1,4 @@
+#include "cpu.hpp"
 #include "display.hpp"
 #include "ram.hpp"
 #include "utils/log.hpp"
@@ -11,7 +12,9 @@ int main() {
   Ram ram;
   ram.load("roms/TETRIS");
 
-  ram.dump();
+  CPU cpu;
+  cpu.dump();
+
   int x = 0, y = 0;
   for (int i = 0; i <= 0xF; i++) {
     display.draw_sprite(ram, ram.sprite_location(i), 5, x, y);
@@ -28,7 +31,8 @@ int main() {
     display.update();
     auto end = std::chrono::high_resolution_clock::now();
     auto diff = end - start;
-    Log::message("time", std::to_string(diff.count() * 1e-9));
+    // Log::message("time", std::to_string(diff.count() * 1e-9));
+    break;
   }
   return 0;
 }
