@@ -17,4 +17,4 @@ target_link_libraries(CHIP-8 PUBLIC engine)
 add_custom_target(
   test
   DEPENDS CHIP-8
-  COMMAND ./CHIP-8)
+  COMMAND ./CHIP-8 roms/TETRIS)

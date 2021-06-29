@@ -35,23 +35,27 @@ void CPU::run(const std::string &path) {
   reset();
   _PC = _ram.load(path);
 
-  double last_time, current_time = 0;
+  double delay_last_time = 0, delay_current_time = 0;
+  double fps_last_time = 0, fps_current_time = 0;
 
   while (!_halt && _display.is_active()) {
-
-    current_time = _display.get_time();
-    if (current_time - last_time > 1.0 / 200) {
-      last_time = current_time;
-      // do processing.
+    fps_current_time = _display.get_time();
+    if (fps_current_time - fps_last_time > 1.0 / 500) {
+      fps_last_time = fps_current_time;
       exec();
+      _display.update();
+      _display.poll_events();
+    }
+
+    delay_current_time = _display.get_time();
+    if (delay_current_time - delay_last_time > 1.0 / 60) {
+      delay_last_time = delay_current_time;
+      // do processing.
 
       if (_delay_timer > 0)
         _delay_timer--;
       if (_sound_timer > 0)
         _sound_timer--;
-
-      _display.update();
-      _display.poll_events();
     }
   }
 }

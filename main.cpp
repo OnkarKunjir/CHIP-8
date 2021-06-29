@@ -1,13 +1,10 @@
 #include "cpu.hpp"
-#include "display.hpp"
-#include "ram.hpp"
 #include "utils/log.hpp"
 
-#include <chrono>
-#include <string>
-
-int main() {
+int main(int argc, const char *argv[]) {
+  if (argc != 2)
+    Log::error("Usage", "CHIP-8 path_to_rom");
   CPU cpu;
-  cpu.run("roms/TETRIS");
+  cpu.run(argv[1]);
   return 0;
 }
