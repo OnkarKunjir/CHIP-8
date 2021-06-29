@@ -3,6 +3,7 @@
 #define GP_REG 16     // number of general purpose registers.
 #define STACK_SIZE 16 // stack size.
 
+#include "display.hpp"
 #include "ram.hpp"
 
 #include <string>
@@ -19,6 +20,7 @@ private:
   unsigned short int _stack[STACK_SIZE]; // 16-bit stack.
 
   Ram _ram;
+  Display _display;
 
   bool _halt;
 
