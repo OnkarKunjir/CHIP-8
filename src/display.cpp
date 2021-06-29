@@ -80,3 +80,13 @@ bool Display::press(int key) const { return _window.press(keys[key]); }
 bool Display::release(int key) const { return _window.release(keys[key]); }
 
 double Display::get_time() const { return glfwGetTime(); }
+
+unsigned char Display::wait_for_key() const {
+  while (true) {
+    for (int i = 0; i < 16; i++) {
+      if (press(i))
+        return i;
+    }
+    poll_events();
+  }
+}

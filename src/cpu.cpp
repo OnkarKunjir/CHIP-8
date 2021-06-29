@@ -256,6 +256,8 @@ void CPU::exec() {
 
     case 0x0A:
       // TODO:LD Vx, K
+      Log::warn(__FILENAME__, "Waiting for key press");
+      _V[x] = _display.wait_for_key();
       break;
 
     case 0x15:

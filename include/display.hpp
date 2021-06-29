@@ -49,4 +49,6 @@ public:
   bool release(int key) const;
 
   double get_time() const;
+
+  unsigned char wait_for_key() const;
 };
