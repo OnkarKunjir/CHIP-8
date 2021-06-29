@@ -20,6 +20,8 @@ private:
 
   Ram _ram;
 
+  bool _halt;
+
 public:
   CPU();
 
@@ -27,4 +29,8 @@ public:
   void reset();
 
   void run(const std::string &path);
+
+private:
+  unsigned short int fetch();
+  void exec();
 };
