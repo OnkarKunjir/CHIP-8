@@ -2,7 +2,19 @@
 This is implementation of CHIP-8 Emulator in C++. All the graphics processing is performed using OpenGL with help of
 [[https://github.com/OnkarKunjir/engine][Engine]].
 
+* Compiling
+#+BEGIN_SRC shell
+mkdir build
+cd build
+cmake ..
+make
+#+END_SRC
+
 * Usage
 #+BEGIN_SRC shell
 ./CHIP-8 path-to-rom
 #+END_SRC
+
+* Referances
+- [[http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2][Cowgod's Chip-8 Technical Reference v1.0]]
+- [[https://www.zophar.net/pdroms/chip8/chip-8-games-pack.html][Chip-8 Games Pack]]
