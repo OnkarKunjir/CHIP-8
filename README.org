@@ -16,9 +16,12 @@ make
 #+END_SRC
 
 * Screenshots
-- [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/brick.png]]
-- [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/invaders.png]]
-- [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/pong.png]]
+- Brick
+  [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/brick.png]]
+- Invaders
+  [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/invaders.png]]
+- Pong
+  [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/pong.png]]
 
 * Referances
 - [[http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2][Cowgod's Chip-8 Technical Reference v1.0]]
