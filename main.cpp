@@ -9,7 +9,9 @@ int main() {
 
   Display display;
   Ram ram;
+  ram.load("roms/TETRIS");
 
+  ram.dump();
   int x = 0, y = 0;
   for (int i = 0; i <= 0xF; i++) {
     display.draw_sprite(ram, ram.sprite_location(i), 5, x, y);

@@ -3,6 +3,9 @@
 #include "ram.hpp"
 #include "utils/log.hpp"
 
+#include <cstdio>
+#include <fstream>
+
 Ram::Ram() { reset(); }
 
 void Ram::reset() {
@@ -36,3 +39,26 @@ const unsigned char &Ram::operator[](int n) const {
 }
 
 int Ram::sprite_location(unsigned char sprite) const { return sprite * 5; }
+
+int Ram::load(const std::string &path) {
+  std::fstream rom(path, std::ios::in);
+
+  if (!rom.is_open())
+    Log::error(__FILENAME__, "Failed to load rom: " + path);
+
+  rom.seekg(std::ios::beg, std::ios::end);
+  _rom_size = rom.tellg();
+  rom.seekg(std::ios::beg, std::ios::beg);
+  Log::warn("ROM SIZE", std::to_string(_rom_size));
+
+  rom.read((char *)_ram + OFFSET, _rom_size);
+
+  rom.close();
+  return OFFSET;
+}
+
+void Ram::dump() const {
+  for (int i = OFFSET; i < OFFSET + _rom_size - 1; i += 2) {
+    printf("%03X | %02x %02x\n", i, _ram[i], _ram[i + 1]);
+  }
+}
