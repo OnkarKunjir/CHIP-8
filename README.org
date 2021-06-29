@@ -1,6 +1,13 @@
 #+TITLE: CHIP-8 Emulator
-This is implementation of CHIP-8 Emulator in C++. All the graphics processing is performed using OpenGL with help of
-[[https://github.com/OnkarKunjir/engine][Engine]].
+
+* Table of contents :toc:
+- [[#compiling][Compiling]]
+- [[#usage][Usage]]
+- [[#screenshots][Screenshots]]
+  - [[#brick][Brick]]
+  - [[#invaders][Invaders]]
+  - [[#pong][Pong]]
+- [[#referances][Referances]]
 
 * Compiling
 #+BEGIN_SRC shell
@@ -16,11 +23,11 @@ make
 #+END_SRC
 
 * Screenshots
-- Brick
+** Brick
   [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/brick.png]]
-- Invaders
+** Invaders
   [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/invaders.png]]
-- Pong
+** Pong
   [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/pong.png]]
 
 * Referances
