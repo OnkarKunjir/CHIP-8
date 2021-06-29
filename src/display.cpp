@@ -74,3 +74,7 @@ void Display::update() {
   Engine2d::draw(rect);
   Engine2d::update();
 }
+
+bool Display::press(int key) const { return _window.press(keys[key]); }
+
+bool Display::release(int key) const { return _window.release(keys[key]); }

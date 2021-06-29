@@ -1,5 +1,6 @@
 #include "utils/log.hpp"
 #include <cstdlib>
+#include <unistd.h>
 #define __FILENAME__ "CPU"
 
 #include "cpu.hpp"
@@ -215,7 +216,25 @@ void CPU::exec() {
     break;
 
   case 0xE:
-    // TODO: implement keys.
+    switch (kk) {
+
+    case 0x9E:
+      // SKP Vx
+      if (_display.press(_V[x]))
+        _PC += 2;
+      break;
+
+    case 0xA1:
+      // SKNP Vx
+      if (_display.release(_V[x]))
+        _PC += 2;
+      break;
+
+    default:
+      printf("%04X\n", instruction);
+      Log::error(__FILENAME__, "Invalid instruction");
+      break;
+    }
     break;
 
   case 0xF:

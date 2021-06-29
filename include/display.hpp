@@ -16,6 +16,26 @@ private:
   bool _grid[GRID_ROWS][GRID_COLS];
 
 public:
+  unsigned int keys[16] = {
+      GLFW_KEY_X, // 0
+      GLFW_KEY_1, // 1
+      GLFW_KEY_2, // 2
+      GLFW_KEY_3, // 3
+      GLFW_KEY_Q, // 4
+      GLFW_KEY_W, // 5
+      GLFW_KEY_E, // 6
+      GLFW_KEY_A, // 7
+      GLFW_KEY_S, // 8
+      GLFW_KEY_D, // 9
+      GLFW_KEY_Z, // A
+      GLFW_KEY_C, // B
+      GLFW_KEY_4, // C
+      GLFW_KEY_R, // D
+      GLFW_KEY_F, // E
+      GLFW_KEY_V, // F
+
+  };
+
   Display();
 
   void cls();
@@ -24,4 +44,7 @@ public:
   bool draw_sprite(const Ram &ram, int start, int n, int x, int y);
 
   void update();
+
+  bool press(int key) const;
+  bool release(int key) const;
 };
