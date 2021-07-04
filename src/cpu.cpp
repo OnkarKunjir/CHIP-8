@@ -11,11 +11,8 @@ void CPU::reset() {
   _halt = false;
   _delay_timer = 0;
   _sound_timer = 0;
-  _SP = -1;
   _I = 0;
   _PC = 0;
-  for (int i = 0; i < STACK_SIZE; i++)
-    _stack[i] = 0;
   for (int i = 0; i < GP_REG; i++)
     _V[i] = 0;
 }
@@ -27,8 +24,7 @@ void CPU::dump() const {
   for (int i = 0; i < GP_REG; i++)
     printf("%02X |", (unsigned char)_V[i]);
   printf("\n");
-
-  printf("PC : 0x%03X\t SP : %02X\n", _PC, (unsigned char)_SP);
+  printf("PC : 0x%03X\t SP : %d\n", _PC, (int)_stack.size());
 }
 
 void CPU::run(const std::string &path) {
@@ -87,9 +83,11 @@ void CPU::exec() {
       _display.cls();
     } else if (instruction == 0x00EE) {
       // RET
-      if (_SP == -1)
+      if (_stack.empty())
         Log::error(__FILENAME__, "Stack underlfow");
-      _PC = _stack[_SP--];
+      _PC = _stack.top();
+      _stack.pop();
+
     } else if (instruction == 0) {
       _halt = true;
     } else {
@@ -105,9 +103,9 @@ void CPU::exec() {
 
   case 0x2:
     // CALL nnn
-    if (_SP == STACK_SIZE)
+    if (_stack.size() == STACK_SIZE)
       Log::error(__FILENAME__, "Stack overflow");
-    _stack[++_SP] = _PC;
+    _stack.push(_PC);
     _PC = nnn;
     break;
 
@@ -255,7 +253,7 @@ void CPU::exec() {
       break;
 
     case 0x0A:
-      // TODO:LD Vx, K
+      // LD Vx, K
       Log::warn(__FILENAME__, "Waiting for key press");
       _V[x] = _display.wait_for_key();
       break;

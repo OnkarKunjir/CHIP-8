@@ -6,6 +6,7 @@
 #include "display.hpp"
 #include "ram.hpp"
 
+#include <stack>
 #include <string>
 
 class CPU {
@@ -13,11 +14,10 @@ private:
   char _V[GP_REG];            // 8-bit 16 general purpose register.
   unsigned char _delay_timer; // 8-bit delay timer.
   unsigned char _sound_timer; // 8-bit sound timer.
-  char _SP;                   // 8-bit stack pointer.
 
   unsigned short int _I;                 // 16-bit register to hold address.
   unsigned short int _PC;                // 16-bit program counter.
-  unsigned short int _stack[STACK_SIZE]; // 16-bit stack.
+  std::stack<unsigned short int> _stack; // stack used for function calls.
 
   Ram _ram;
   Display _display;
