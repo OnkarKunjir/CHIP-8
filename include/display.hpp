@@ -1,10 +1,15 @@
 #pragma once
 
-#define DISPLAY_WIDTH 640
-#define DISPLAY_HEIGHT 320
+#define DISPLAY_WIDTH 1280
+#define DISPLAY_HEIGHT 640
 
-#define GRID_ROWS 32
-#define GRID_COLS 64
+// Super chip 8 display.
+#define GRID_ROWS 64
+#define GRID_COLS 128
+
+// Chip 8 dispaly.
+#define LOW_RES_GRID_ROWS 32
+#define LOW_RES_GRID_COLS 64
 
 #include "ram.hpp"
 
@@ -14,6 +19,7 @@
 class Display : public Engine2d {
 private:
   bool _grid[GRID_ROWS][GRID_COLS];
+  bool _high_res; // set the mode of display.
 
 public:
   unsigned int keys[16] = {
@@ -33,7 +39,6 @@ public:
       GLFW_KEY_R, // D
       GLFW_KEY_F, // E
       GLFW_KEY_V, // F
-
   };
 
   Display();

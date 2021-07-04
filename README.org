@@ -34,7 +34,7 @@ make
 * Super CHIP-8 implementation [0/5]
 - [ ] Implement instructions.
 - [ ] High resolution fonts.
-- [ ] High resolution display.
+- [-] High resolution display.
 - [ ] Display scrolling.
 - [ ] RPL flags.
 

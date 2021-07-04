@@ -12,6 +12,7 @@ void Display::cls() {
       _grid[i][j] = false;
     }
   }
+  _high_res = false;
 }
 
 bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
@@ -41,12 +42,16 @@ bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
 }
 
 bool Display::draw_sprite(const Ram &ram, int start, int n, int x, int y) {
+
+  int grid_rows = _high_res ? GRID_ROWS : LOW_RES_GRID_ROWS;
+  int grid_cols = _high_res ? GRID_COLS : LOW_RES_GRID_COLS;
+
   bool collide = false;
-  int row = y % GRID_ROWS;
-  int col = x % GRID_COLS;
+  int row = y % grid_rows;
+  int col = x % grid_cols;
 
   for (int i = start; i < (start + n); i++) {
-    col = x % GRID_COLS;
+    col = x % grid_cols;
     for (int j = 0; j < 8; j++) {
       if ((ram[i] & (0x80 >> j)) != 0) {
         if (row < GRID_ROWS && col < GRID_COLS) {
@@ -55,20 +60,23 @@ bool Display::draw_sprite(const Ram &ram, int start, int n, int x, int y) {
           _grid[row][col] ^= 1;
         }
       }
-      col = (col + 1) % GRID_COLS;
+      col = (col + 1) % grid_cols;
     }
-    row = (row + 1) % GRID_ROWS;
+    row = (row + 1) % grid_rows;
   }
   return collide;
 }
 
 void Display::update() {
   std::vector<Rect> rect;
+  float pixel_size = _high_res ? 10.0f : 20.0f;
 
   for (int i = 0; i < GRID_ROWS; i++) {
     for (int j = 0; j < GRID_COLS; j++) {
-      if (_grid[i][j])
-        rect.push_back({j * 10.0f, i * 10.0f, 10.0f, 10.0f});
+      if (_grid[i][j]) {
+        rect.push_back(
+            {j * pixel_size, i * pixel_size, pixel_size, pixel_size});
+      }
     }
   }
   Engine2d::draw(rect);
