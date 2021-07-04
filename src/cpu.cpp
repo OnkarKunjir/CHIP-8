@@ -15,6 +15,9 @@ void CPU::reset() {
   _PC = 0;
   for (int i = 0; i < GP_REG; i++)
     _V[i] = 0;
+
+  for (int i = 0; i < RPL_REG; i++)
+    _RPL[i] = 0;
 }
 
 void CPU::dump() const {
@@ -292,7 +295,13 @@ void CPU::exec() {
 
     case 0x29:
       // LD F, Vx
-      _I = _ram.sprite_location(_V[x], _display.high_res());
+      _I = _ram.sprite_location(_V[x]);
+      break;
+
+    case 0x30:
+      // LD F, Vx
+      // Point I to 10-byte font sprite for digit VX (0..9)
+      _I = _ram.sprite_location(_V[x], true);
       break;
 
     case 0x33:
@@ -315,6 +324,24 @@ void CPU::exec() {
       for (int i = 0; i <= x; i++) {
         _V[i] = _ram[_I + i];
       }
+      break;
+
+    case 0x75:
+      // Fx75
+      // Store V0..VX in RPL user flags (X <= 7)
+      if (x > 7)
+        Log::error(__FILENAME__, "Invalid RPL register write");
+      for (int i = 0; i <= x; i++)
+        _RPL[i] = _V[i];
+      break;
+
+    case 0x85:
+      // Fx85
+      // Read V0..VX from RPL user flags (X <= 7)
+      if (x > 7)
+        Log::error(__FILENAME__, "Invalid RPL register read");
+      for (int i = 0; i <= x; i++)
+        _V[i] = _RPL[i];
       break;
 
     default:

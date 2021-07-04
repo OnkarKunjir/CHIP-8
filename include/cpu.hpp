@@ -1,6 +1,7 @@
 #pragma once
 
 #define GP_REG 16     // number of general purpose registers.
+#define RPL_REG 8     // number of RPL registers.
 #define STACK_SIZE 16 // stack size.
 #define MAX_FPS 1000  // target fps.
 #define CLOCK_FREQ 60 // clock frequency for updating timers.
@@ -13,9 +14,10 @@
 
 class CPU {
 private:
-  unsigned char _V[GP_REG];   // 8-bit 16 general purpose register.
-  unsigned char _delay_timer; // 8-bit delay timer.
-  unsigned char _sound_timer; // 8-bit sound timer.
+  unsigned char _V[GP_REG];    // 8-bit 16 general purpose register.
+  unsigned char _delay_timer;  // 8-bit delay timer.
+  unsigned char _sound_timer;  // 8-bit sound timer.
+  unsigned char _RPL[RPL_REG]; // 8-bit RPL flags.
 
   unsigned short int _I;  // 16-bit register to hold address.
   unsigned short int _PC; // 16-bit program counter.

@@ -7,7 +7,7 @@
   - [[#brick][Brick]]
   - [[#invaders][Invaders]]
   - [[#pong][Pong]]
-- [[#super-chip-8-implementation-35][Super CHIP-8 implementation]]
+- [[#super-chip-8-implementation-56][Super CHIP-8 implementation]]
 - [[#referances][Referances]]
 
 * Compiling
@@ -31,12 +31,13 @@ make
 ** Pong
   [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/pong.png]]
 
-* Super CHIP-8 implementation [3/5]
-- [-] Implement instructions.
+* Super CHIP-8 implementation [5/6]
+- [X] Implement instructions.
 - [X] High resolution fonts.
 - [X] High resolution display.
 - [X] Display scrolling.
-- [ ] RPL flags.
+- [X] RPL flags.
+- [-] Make display resolution controllable through command line.
 
 * Referances
 - [[http://devernay.free.fr/hacks/chip8/C8TECH10.HTM][Cowgod's Chip-8 Technical Reference v1.0]]
