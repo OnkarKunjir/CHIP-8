@@ -7,6 +7,7 @@
   - [[#brick][Brick]]
   - [[#invaders][Invaders]]
   - [[#pong][Pong]]
+- [[#super-chip-8-implementation-05][Super CHIP-8 implementation]]
 - [[#referances][Referances]]
 
 * Compiling
@@ -30,6 +31,14 @@ make
 ** Pong
   [[https://raw.githubusercontent.com/OnkarKunjir/CHIP-8/main/screenshots/pong.png]]
 
+* Super CHIP-8 implementation [0/5]
+- [ ] Implement instructions.
+- [ ] High resolution fonts.
+- [ ] High resolution display.
+- [ ] Display scrolling.
+- [ ] RPL flags.
+
 * Referances
-- [[http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2][Cowgod's Chip-8 Technical Reference v1.0]]
+- [[http://devernay.free.fr/hacks/chip8/C8TECH10.HTM][Cowgod's Chip-8 Technical Reference v1.0]]
+- [[https://courses.ece.cornell.edu/ece5990/ECE5725_Fall2016_Projects/Lab_group_bcp39_rk534/cpu.html][Super Chip-8]]
 - [[https://www.zophar.net/pdroms/chip8/chip-8-games-pack.html][Chip-8 Games Pack]]
