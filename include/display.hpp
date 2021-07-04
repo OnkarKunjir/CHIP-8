@@ -100,7 +100,6 @@ public:
    *  @brief Enable/Disable high resolution display.
    */
   void high_res(bool enable);
-  bool high_res() const;
 
   /**
    *  @brief Scroll display down.

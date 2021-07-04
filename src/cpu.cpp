@@ -60,6 +60,8 @@ void CPU::run(const std::string &path) {
   }
 }
 
+void CPU::force() { _display.high_res(true); }
+
 // private functions.
 unsigned short int CPU::fetch() {
   unsigned short int instruction = 0;

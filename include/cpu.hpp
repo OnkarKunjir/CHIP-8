@@ -39,12 +39,15 @@ public:
    *  @brief Function to reset CPU state.
    */
   void reset();
-
   /**
    *  @brief Executes the rom.
    *  @param path Specify the path of ram.
    */
   void run(const std::string &path);
+  /**
+   *  @brief Force display to be in high resolution mode by default.
+   */
+  void force();
 
 private:
   /**

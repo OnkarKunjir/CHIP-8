@@ -1,10 +1,10 @@
 #include "display.hpp"
 #include "engine2d.hpp"
 #include "shapes/rect.hpp"
-#include "utils/log.hpp"
 
 Display::Display() : Engine2d("CHIP-8", DISPLAY_WIDTH, DISPLAY_HEIGHT) {
   cls();
+  _high_res = false;
 }
 
 void Display::cls() {
@@ -13,7 +13,6 @@ void Display::cls() {
       _grid[i][j] = false;
     }
   }
-  _high_res = false;
 }
 
 bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
@@ -104,7 +103,6 @@ unsigned char Display::wait_for_key() const {
 }
 
 void Display::high_res(bool enable) { _high_res = enable; }
-bool Display::high_res() const { return _high_res; }
 
 void Display::scroll_down(unsigned char n) {
   for (int i = GRID_ROWS - 1; i > 0; i--) {
