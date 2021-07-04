@@ -24,7 +24,7 @@ void CPU::dump() const {
   for (int i = 0; i < GP_REG; i++)
     printf("%02X |", (unsigned char)_V[i]);
   printf("\n");
-  printf("PC : 0x%03X\t SP : %d\n", _PC, (int)_stack.size());
+  printf("PC : 0x%03X\t SP : %d\t I : %03X\n", _PC, (int)_stack.size(), _I);
 }
 
 void CPU::run(const std::string &path) {
@@ -36,15 +36,16 @@ void CPU::run(const std::string &path) {
 
   while (!_halt && _display.is_active()) {
     fps_current_time = _display.get_time();
-    if (fps_current_time - fps_last_time > 1.0 / 500) {
+    if (fps_current_time - fps_last_time > 1.0 / MAX_FPS) {
       fps_last_time = fps_current_time;
+      // dump();
       exec();
       _display.update();
       _display.poll_events();
     }
 
     delay_current_time = _display.get_time();
-    if (delay_current_time - delay_last_time > 1.0 / 60) {
+    if (delay_current_time - delay_last_time > 1.0 / CLOCK_FREQ) {
       delay_last_time = delay_current_time;
       // do processing.
 
@@ -66,6 +67,7 @@ unsigned short int CPU::fetch() {
 
 void CPU::exec() {
   unsigned short int instruction = fetch();
+  // printf("Instruction : %04X\n\n", instruction);
 
   // decode instructions
   unsigned char group = (instruction & 0xF000) >> 12;
@@ -87,7 +89,6 @@ void CPU::exec() {
         Log::error(__FILENAME__, "Stack underlfow");
       _PC = _stack.top();
       _stack.pop();
-
     } else if (instruction == 0) {
       _halt = true;
     } else {

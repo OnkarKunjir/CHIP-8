@@ -2,8 +2,6 @@
 #include "engine2d.hpp"
 #include "shapes/rect.hpp"
 
-#include <iostream>
-
 Display::Display() : Engine2d("CHIP-8", DISPLAY_WIDTH, DISPLAY_HEIGHT) {
   cls();
 }
@@ -19,6 +17,7 @@ void Display::cls() {
 bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
                           int y) {
 
+  // TODO: update this function.
   bool collide = false;
   int row = y;
   int col = x;
@@ -43,21 +42,22 @@ bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
 
 bool Display::draw_sprite(const Ram &ram, int start, int n, int x, int y) {
   bool collide = false;
-  int row = y;
-  int col = x;
+  int row = y % GRID_ROWS;
+  int col = x % GRID_COLS;
 
-  for (int i = start; i < start + n; i++) {
-    col = x;
+  for (int i = start; i < (start + n); i++) {
+    col = x % GRID_COLS;
     for (int j = 0; j < 8; j++) {
-      if (_grid[row % GRID_ROWS][col % GRID_COLS]) {
-        _grid[row % GRID_ROWS][col % GRID_COLS] ^= (ram[i] >> (7 - j)) & 1;
-        collide = collide | !_grid[row % GRID_ROWS][col % GRID_COLS];
-      } else {
-        _grid[row % GRID_ROWS][col % GRID_COLS] ^= (ram[i] >> (7 - j)) & 1;
+      if ((ram[i] & (0x80 >> j)) != 0) {
+        if (row < GRID_ROWS && col < GRID_COLS) {
+          if (_grid[row][col])
+            collide = true;
+          _grid[row][col] ^= 1;
+        }
       }
-      col++;
+      col = (col + 1) % GRID_COLS;
     }
-    row++;
+    row = (row + 1) % GRID_ROWS;
   }
   return collide;
 }
