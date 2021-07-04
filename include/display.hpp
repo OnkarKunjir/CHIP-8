@@ -95,4 +95,25 @@ public:
    *  @return index of key which was pressed.
    */
   unsigned char wait_for_key() const;
+
+  /**
+   *  @brief Enable/Disable high resolution display.
+   */
+  void high_res(bool enable);
+
+  /**
+   *  @brief Scroll display down.
+   *  @param Specify number of pixels to scroll down.
+   */
+  void scroll_down(unsigned char n);
+
+  /**
+   *  @brief Scroll display to left by 4 pixels.
+   */
+  void scroll_left();
+
+  /**
+   *  @brief Scroll display to right by 4 pixels.
+   */
+  void scroll_right();
 };

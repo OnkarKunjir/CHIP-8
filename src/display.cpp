@@ -17,8 +17,7 @@ void Display::cls() {
 
 bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
                           int y) {
-
-  // TODO: update this function.
+  // FIXME: update this function.
   bool collide = false;
   int row = y;
   int col = x;
@@ -69,6 +68,7 @@ bool Display::draw_sprite(const Ram &ram, int start, int n, int x, int y) {
 
 void Display::update() {
   std::vector<Rect> rect;
+  // scale the pixel according to dispaly mode.
   float pixel_size = _high_res ? 10.0f : 20.0f;
 
   for (int i = 0; i < GRID_ROWS; i++) {
@@ -96,5 +96,44 @@ unsigned char Display::wait_for_key() const {
         return i;
     }
     poll_events();
+  }
+}
+
+void Display::high_res(bool enable) { _high_res = enable; }
+
+void Display::scroll_down(unsigned char n) {
+  for (int i = GRID_ROWS - 1; i > 0; i--) {
+    for (int j = 0; j < GRID_COLS; j++) {
+      _grid[i][j] = _grid[i - 1][j];
+    }
+  }
+  for (int i = 0; i < GRID_COLS; i++)
+    _grid[0][i] = false;
+}
+
+void Display::scroll_left() {
+  for (int i = 0; i < GRID_ROWS; i++) {
+    for (int j = 0; j < GRID_COLS - 4; j++) {
+      _grid[i][j] = _grid[i][j + 4];
+    }
+  }
+  for (int i = 0; i < GRID_ROWS; i++) {
+    for (int j = GRID_COLS - 4; j < GRID_COLS; j++) {
+      _grid[i][j] = false;
+    }
+  }
+}
+
+void Display::scroll_right() {
+  // NOTE: Function is not tested yet.
+  for (int i = 0; i < GRID_ROWS; i++) {
+    for (int j = GRID_COLS - 4; j > 4; j--) {
+      _grid[i][j] = _grid[i][j - 4];
+    }
+  }
+  for (int i = 0; i < GRID_ROWS; i++) {
+    for (int j = 0; j < 4; j++) {
+      _grid[i][j] = false;
+    }
   }
 }

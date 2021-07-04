@@ -89,8 +89,24 @@ void CPU::exec() {
         Log::error(__FILENAME__, "Stack underlfow");
       _PC = _stack.top();
       _stack.pop();
-    } else if (instruction == 0) {
+    } else if (instruction == 0x00FD) {
+      // EXIT
       _halt = true;
+    } else if (instruction == 0x00FB) {
+      // Scroll right.
+      _display.scroll_right();
+    } else if (instruction == 0x00FC) {
+      // Scroll left.
+      _display.scroll_left();
+    } else if (instruction == 0x00FE) {
+      // Disable extended screen mode.
+      _display.high_res(false);
+    } else if (instruction == 0x00FF) {
+      // Enable extended screen mode for full-screen graphics.
+      _display.high_res(true);
+    } else if (y == 0xC) {
+      // Scroll down n pixels.
+      _display.scroll_down(n);
     } else {
       printf("%04X\n", instruction);
       Log::error(__FILENAME__, "Invalid instruction");
