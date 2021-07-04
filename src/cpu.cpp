@@ -292,7 +292,7 @@ void CPU::exec() {
 
     case 0x29:
       // LD F, Vx
-      _I = _ram.sprite_location(_V[x]);
+      _I = _ram.sprite_location(_V[x], _display.high_res());
       break;
 
     case 0x33:

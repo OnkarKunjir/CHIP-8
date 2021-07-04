@@ -100,6 +100,7 @@ public:
    *  @brief Enable/Disable high resolution display.
    */
   void high_res(bool enable);
+  bool high_res() const;
 
   /**
    *  @brief Scroll display down.
@@ -116,4 +117,7 @@ public:
    *  @brief Scroll display to right by 4 pixels.
    */
   void scroll_right();
+
+private:
+  bool draw_high_res_sprite(const Ram &ram, int start, int x, int y);
 };

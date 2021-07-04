@@ -1,6 +1,7 @@
 #include "display.hpp"
 #include "engine2d.hpp"
 #include "shapes/rect.hpp"
+#include "utils/log.hpp"
 
 Display::Display() : Engine2d("CHIP-8", DISPLAY_WIDTH, DISPLAY_HEIGHT) {
   cls();
@@ -41,6 +42,9 @@ bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
 }
 
 bool Display::draw_sprite(const Ram &ram, int start, int n, int x, int y) {
+
+  if (n == 0 && _high_res)
+    return draw_high_res_sprite(ram, start, x, y);
 
   int grid_rows = _high_res ? GRID_ROWS : LOW_RES_GRID_ROWS;
   int grid_cols = _high_res ? GRID_COLS : LOW_RES_GRID_COLS;
@@ -100,6 +104,7 @@ unsigned char Display::wait_for_key() const {
 }
 
 void Display::high_res(bool enable) { _high_res = enable; }
+bool Display::high_res() const { return _high_res; }
 
 void Display::scroll_down(unsigned char n) {
   for (int i = GRID_ROWS - 1; i > 0; i--) {
@@ -136,4 +141,38 @@ void Display::scroll_right() {
       _grid[i][j] = false;
     }
   }
+}
+
+// private functions
+bool Display::draw_high_res_sprite(const Ram &ram, int start, int x, int y) {
+
+  int grid_rows = GRID_ROWS;
+  int grid_cols = GRID_COLS;
+
+  bool collide = false;
+  int row = y % grid_rows;
+  int col = x % grid_cols;
+
+  unsigned short int bytes = 0;
+  int index = start;
+
+  for (int i = 0; i < 16; i++) {
+    int col = x % grid_cols;
+    bytes = ram[index++];
+    bytes = (bytes << 8) | ram[index++];
+    for (int j = 0; j < 16; j++) {
+
+      if ((bytes & (0x8000 >> j)) != 0) {
+        if (row < GRID_ROWS && col < GRID_COLS) {
+          if (_grid[row][col])
+            collide = true;
+          _grid[row][col] ^= 1;
+        }
+      }
+      col = (col + 1) % grid_cols;
+    }
+    row = (row + 1) % grid_rows;
+  }
+
+  return collide;
 }

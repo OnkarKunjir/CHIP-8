@@ -34,9 +34,10 @@ public:
   /**
    *  @brief Get address of defalut sprite.
    *  @pram sprite hex digit whoes address needs to be accessed.
+   *  @param high_res query address of high resolution sprite if true.
    *  @return adderess of memory location containing sprite.
    */
-  int sprite_location(unsigned char sprite) const;
+  int sprite_location(unsigned char sprite, bool high_res = false) const;
 
   /**
    *  @brief Load the ROM contents into memory location starting at 0x200.
