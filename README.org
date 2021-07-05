@@ -1,8 +1,11 @@
 #+TITLE: CHIP-8 Emulator
 
 * Table of contents :toc:
-- [[#compiling][Compiling]]
-- [[#usage][Usage]]
+- [[#how-to-use][How to use]]
+  - [[#clone-the-repository][Clone the repository]]
+  - [[#compiling][Compiling]]
+  - [[#usage][Usage]]
+  - [[#key-binding][Key binding]]
 - [[#screenshots][Screenshots]]
   - [[#brick][Brick]]
   - [[#invaders][Invaders]]
@@ -10,7 +13,15 @@
 - [[#super-chip-8-implementation-66][Super CHIP-8 implementation]]
 - [[#references][References]]
 
-* Compiling
+* How to use
+** Clone the repository
+This will download project along with it's dependencies.
+#+begin_src shell
+git clone --recurse-submodules https://github.com/OnkarKunjir/CHIP-8.git
+#+end_src
+
+** Compiling
+Run following commands to compile the project.
 #+BEGIN_SRC shell
 mkdir build
 cd build
@@ -18,11 +29,22 @@ cmake ..
 make
 #+END_SRC
 
-* Usage
-Option ~--force~  forces emulator not to scale the pixels for chip-8 games.
+** Usage
+Option ~--force~  forces emulator from scaling the pixels for Chip-8 games.
 #+BEGIN_SRC shell
 ./CHIP-8 [--force] path-to-rom
 #+END_SRC
+
+** Key binding
+|---+---+---+---|
+| 1 | 2 | 3 | 4 |
+|---+---+---+---|
+| Q | W | E | D |
+|---+---+---+---|
+| A | S | D | F |
+|---+---+---+---|
+| Z | X | C | C |
+|---+---+---+---|
 
 * Screenshots
 ** Brick
