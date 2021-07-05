@@ -39,11 +39,11 @@ Option ~--force~  forces emulator from scaling the pixels for Chip-8 games.
 |---+---+---+---|
 | 1 | 2 | 3 | 4 |
 |---+---+---+---|
-| Q | W | E | D |
+| Q | W | E | R |
 |---+---+---+---|
 | A | S | D | F |
 |---+---+---+---|
-| Z | X | C | C |
+| Z | X | C | V |
 |---+---+---+---|
 
 * Screenshots
