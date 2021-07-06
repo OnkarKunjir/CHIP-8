@@ -41,7 +41,6 @@ void CPU::run(const std::string &path) {
     fps_current_time = _display.get_time();
     if (fps_current_time - fps_last_time > 1.0 / MAX_FPS) {
       fps_last_time = fps_current_time;
-      // dump();
       exec();
       _display.update();
       _display.poll_events();

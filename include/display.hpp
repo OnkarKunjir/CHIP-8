@@ -20,6 +20,7 @@ class Display : public Engine2d {
 private:
   bool _grid[GRID_ROWS][GRID_COLS];
   bool _high_res; // set the mode of display.
+  bool _pixel_updated;
 
 public:
   unsigned int keys[16] = {
@@ -62,7 +63,7 @@ public:
    *  @param start Statring address of sprite in ram.
    *  @param n Size of sprite to be drawn in bytes.
    *  @param x top left x-coordinate of sprite on screen.
-   *  @pram y top left y-coordinate of sprite on screen.
+   *  @param y top left y-coordinate of sprite on screen.
    *  @return true if any pixel is erased due to sprite.
    */
   bool draw_sprite(const Ram &ram, int start, int n, int x, int y);
@@ -71,7 +72,6 @@ public:
    * @brief Update the display.
    */
   void update();
-
   /**
    *  @brief Function to check if key from keys is pressed.
    *  @param key Index of value form array keys.
@@ -118,5 +118,8 @@ public:
   void scroll_right();
 
 private:
+  /**
+   *  @brief Function draws high resolution sprite of 16*16 pixel.
+   */
   bool draw_high_res_sprite(const Ram &ram, int start, int x, int y);
 };

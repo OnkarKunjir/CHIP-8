@@ -1,10 +1,9 @@
 #include "display.hpp"
-#include "engine2d.hpp"
-#include "shapes/rect.hpp"
 
 Display::Display() : Engine2d("CHIP-8", DISPLAY_WIDTH, DISPLAY_HEIGHT) {
   cls();
   _high_res = false;
+  _pixel_updated = true;
 }
 
 void Display::cls() {
@@ -42,6 +41,7 @@ bool Display::draw_sprite(const std::vector<unsigned char> &sprite, int x,
 
 bool Display::draw_sprite(const Ram &ram, int start, int n, int x, int y) {
 
+  _pixel_updated = true;
   if (n == 0 && _high_res)
     return draw_high_res_sprite(ram, start, x, y);
 
@@ -70,19 +70,24 @@ bool Display::draw_sprite(const Ram &ram, int start, int n, int x, int y) {
 }
 
 void Display::update() {
-  std::vector<Rect> rect;
   // scale the pixel according to dispaly mode.
-  float pixel_size = _high_res ? 10.0f : 20.0f;
+  if (_pixel_updated) {
+    std::vector<Rect> rect;
+    float pixel_size = _high_res ? 10.0f : 20.0f;
 
-  for (int i = 0; i < GRID_ROWS; i++) {
-    for (int j = 0; j < GRID_COLS; j++) {
-      if (_grid[i][j]) {
-        rect.push_back(
-            {j * pixel_size, i * pixel_size, pixel_size, pixel_size});
+    for (int i = 0; i < GRID_ROWS; i++) {
+      for (int j = 0; j < GRID_COLS; j++) {
+        if (_grid[i][j]) {
+          rect.push_back(
+              {j * pixel_size, i * pixel_size, pixel_size, pixel_size});
+        }
       }
     }
+    Engine2d::draw(rect);
+    _pixel_updated = false;
+  } else {
+    Engine2d::draw();
   }
-  Engine2d::draw(rect);
   Engine2d::update();
 }
 
@@ -105,6 +110,7 @@ unsigned char Display::wait_for_key() const {
 void Display::high_res(bool enable) { _high_res = enable; }
 
 void Display::scroll_down(unsigned char n) {
+  _pixel_updated = true;
   for (int i = GRID_ROWS - 1; i > 0; i--) {
     for (int j = 0; j < GRID_COLS; j++) {
       _grid[i][j] = _grid[i - 1][j];
@@ -115,6 +121,7 @@ void Display::scroll_down(unsigned char n) {
 }
 
 void Display::scroll_left() {
+  _pixel_updated = true;
   for (int i = 0; i < GRID_ROWS; i++) {
     for (int j = 0; j < GRID_COLS - 4; j++) {
       _grid[i][j] = _grid[i][j + 4];
@@ -128,6 +135,7 @@ void Display::scroll_left() {
 }
 
 void Display::scroll_right() {
+  _pixel_updated = true;
   // NOTE: Function is not tested yet.
   for (int i = 0; i < GRID_ROWS; i++) {
     for (int j = GRID_COLS - 4; j > 4; j--) {
